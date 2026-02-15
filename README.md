@@ -55,9 +55,9 @@ $$
 
 | Regime | Mach Range | Characteristics |
 |--------|------------|-----------------|
-| **Subsonic** | $M < 0.8$ | Prandtl-Glauert compressibility |
+| **Subsonic** | $M \lt 0.8$ | Prandtl-Glauert compressibility |
 | **Transonic** | $0.8 \leq M \leq 1.2$ | Mixed sub/supersonic flow, shocks |
-| **Supersonic** | $1.2 < M < 5.0$ | Ackeret linear theory applies |
+| **Supersonic** | $1.2 \lt M \lt 5.0$ | Ackeret linear theory applies |
 | **Hypersonic** | $M \geq 5.0$ | Newtonian flow, high temperature |
 
 ---
@@ -181,7 +181,7 @@ $$
 M_n = M \cdot \cos\Lambda_{LE}
 $$
 
-If $M_n < 1$:
+If $M_n \lt 1$:
 $$
 C_{L_\alpha,3D} = \frac{2\pi \cdot AR}{2 + \sqrt{AR^2 \cdot \beta_n^2 + 4}}
 $$
@@ -213,12 +213,12 @@ $$
 
 **For Subsonic Leading Edge:**
 
-When $M_n = M \cos\Lambda_{LE} < 1$ (normal Mach subsonic):
+When $M_n = M \cos\Lambda_{LE} \lt 1$ (normal Mach subsonic):
 $$
 C_{l_p} = -\frac{2\pi}{3(AR + 2/\beta_n)} \cdot \frac{1 + 2\lambda}{1 + \lambda} \cdot \cos^2\Lambda
 $$
 
-When $M_n > 1$ (normal Mach supersonic):
+When $M_n \gt 1$ (normal Mach supersonic):
 $$
 C_{l_p} = -\frac{4}{3\beta_n} \cdot \frac{AR}{AR + 4/\beta_n} \cdot \frac{1 + 2\lambda}{1 + \lambda} \cdot \cos^2\Lambda
 $$
@@ -251,7 +251,7 @@ $$
 
 ### 6.5 Hypersonic Flow
 
-For $M > 5$, use **Mach number independence** with Newtonian correction:
+For $M \gt 5$, use **Mach number independence** with Newtonian correction:
 $$
 \boxed{C_{l_p,hyper} = C_{l_p}(M=5) \cdot \sqrt{\frac{5}{M}}}
 $$
