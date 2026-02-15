@@ -427,6 +427,112 @@ $$
 
 ---
 
+## 14. Code Structure
+
+### Python (`roll_damping_derivative.py`)
+
+```
+Classes:
+├── FlowRegime (Enum)      - Flow classification
+└── WingGeometry           - Wing parameters dataclass
+
+Functions:
+├── Compressibility
+│   ├── compressibility_factor(mach)
+│   ├── mach_cone_angle(mach)
+│   └── is_wing_subsonic_le(mach, sweep)
+├── Lift Curve Slope
+│   ├── lift_curve_slope_2d_subsonic(mach)
+│   ├── lift_curve_slope_2d_supersonic(mach)
+│   ├── lift_curve_slope_3d_subsonic(AR, sweep, mach)
+│   ├── lift_curve_slope_3d_supersonic(wing, mach)
+│   └── lift_curve_slope_3d(wing, mach)          # Unified
+├── Roll Damping
+│   ├── calculate_clp_subsonic(wing, mach)
+│   ├── calculate_clp_supersonic_analytical(wing, mach)
+│   ├── calculate_clp_supersonic_strip(wing, mach)
+│   └── calculate_clp(wing, mach)                # Unified
+└── Utilities
+    ├── dimensional_roll_damping(clp, rho, V, wing)
+    └── standard_atmosphere(altitude)
+```
+
+### Fortran (`roll_damping_derivative.f90`)
+
+```
+Modules:
+├── constants              - PI, DEG2RAD, regime parameters
+├── wing_geometry_mod      - WingGeometry type, geometry functions
+├── flow_regime_mod        - Regime classification, Mach cone
+├── lift_curve_slope_mod   - All C_L_alpha calculations
+├── roll_damping_mod       - All C_l_p calculations
+└── atmosphere_mod         - ISA standard atmosphere
+
+Main Program:
+└── roll_damping_calculator - Example calculations
+```
+
+### Key Differences Python vs Fortran
+
+| Feature | Python | Fortran |
+|---------|--------|---------|
+| Precision | float64 (default) | `real(dp)` (selected_real_kind) |
+| Classes | `@dataclass` | `type :: WingGeometry` |
+| Enums | `Enum` class | `integer, parameter` |
+| Array ops | NumPy | Do loops |
+| Integration | `np.trapezoid` | Manual trapezoidal |
+
+---
+
+## 15. Usage Examples
+
+### Python - Custom Wing Analysis
+
+```python
+from roll_damping_derivative import WingGeometry, calculate_clp
+import numpy as np
+
+# Define custom wing
+my_wing = WingGeometry(
+    span=12.0,
+    root_chord=3.0,
+    tip_chord=1.0,
+    sweep_leading_edge=np.radians(35)
+)
+
+# Calculate at Mach 1.8
+clp, regime = calculate_clp(my_wing, mach=1.8)
+print(f"C_l_p = {clp:.4f} ({regime.value})")
+```
+
+### Fortran - Custom Wing Analysis
+
+```fortran
+program custom_analysis
+    use constants
+    use wing_geometry_mod
+    use roll_damping_mod
+    implicit none
+
+    type(WingGeometry) :: my_wing
+    real(dp) :: clp
+    integer :: regime
+
+    my_wing = WingGeometry( &
+        span = 12.0_dp, &
+        root_chord = 3.0_dp, &
+        tip_chord = 1.0_dp, &
+        sweep_le = 35.0_dp * DEG2RAD &
+    )
+
+    call calculate_clp(my_wing, 1.8_dp, clp, regime)
+    write(*,'(A,F8.4)') "C_l_p = ", clp
+
+end program custom_analysis
+```
+
+---
+
 ## References
 
 1. **Ackeret, J.** - "Luftkräfte auf Flügel" (1925) - Supersonic airfoil theory
