@@ -112,6 +112,7 @@ For supersonic flight, wing leading edge behavior depends on sweep:
 $$
 \text{Subsonic LE: } \Lambda_{LE} > \mu
 $$
+
 $$
 \text{Supersonic LE: } \Lambda_{LE} < \mu
 $$
@@ -182,6 +183,7 @@ M_n = M \cdot \cos\Lambda_{LE}
 $$
 
 If $M_n \lt 1$:
+
 $$
 C_{L_\alpha,3D} = \frac{2\pi \cdot AR}{2 + \sqrt{AR^2 \cdot \beta_n^2 + 4}}
 $$
@@ -214,11 +216,13 @@ $$
 **For Subsonic Leading Edge:**
 
 When $M_n = M \cos\Lambda_{LE} \lt 1$ (normal Mach subsonic):
+
 $$
 C_{l_p} = -\frac{2\pi}{3(AR + 2/\beta_n)} \cdot \frac{1 + 2\lambda}{1 + \lambda} \cdot \cos^2\Lambda
 $$
 
 When $M_n \gt 1$ (normal Mach supersonic):
+
 $$
 C_{l_p} = -\frac{4}{3\beta_n} \cdot \frac{AR}{AR + 4/\beta_n} \cdot \frac{1 + 2\lambda}{1 + \lambda} \cdot \cos^2\Lambda
 $$
@@ -320,8 +324,8 @@ $$
 |-------|-----------------|-------------------|
 | $\Lambda = 0°$ | Max damping | Supersonic LE, reduced damping |
 | $\Lambda = 30°$ | Moderate reduction | Transition region |
-| $\Lambda = 45°$ | $\cos^2$ reduction | Subsonic LE at M < 1.4, better damping |
-| $\Lambda = 60°$ | Significant reduction | Subsonic LE at M < 2.0, best supersonic damping |
+| $\Lambda = 45°$ | $\cos^2$ reduction | Subsonic LE at M &lt; 1.4, better damping |
+| $\Lambda = 60°$ | Significant reduction | Subsonic LE at M &lt; 2.0, best supersonic damping |
 
 **Sweep angle conversion (LE to quarter-chord):**
 $$
@@ -409,18 +413,20 @@ $$
 
 For altitude-dependent calculations:
 
-**Troposphere (h < 11 km):**
+**Troposphere (h &lt; 11 km):**
 $$
 T = 288.15 - 0.0065h \quad \text{(K)}
 $$
+
 $$
 \rho = \rho_0 \left(\frac{T}{288.15}\right)^{4.2561}
 $$
 
-**Stratosphere (11 km < h < 20 km):**
+**Stratosphere (11 km &lt; h &lt; 20 km):**
 $$
 T = 216.65 \text{ K (constant)}
 $$
+
 $$
 \rho = \rho_{11km} \cdot \exp\left(-\frac{g(h-11000)}{RT}\right)
 $$
